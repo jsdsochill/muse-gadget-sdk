@@ -1847,7 +1847,24 @@ static void voice_task(void *arg)
         }
         muse_wifi_power(MUSE_WIFI_FULL);
 #if CONFIG_MUSE_REALTIME_VOICE
-        if (ptt && !synthetic) {   /* a wake word turn is a voice note, not a call */
+    #if CONFIG_MUSE_REALTIME_VOICE && CONFIG_MUSE_WAKEWORD_ENABLE
+    /* Experimental: start Live Voice after a wake-word event. */
+    if (synthetic) {
+        muse_input_clear_call_pending(s_press_mark);
+        muse_wakeword_turn_ended();
+        pre_reset();
+
+        if (muse_voice_call_ready()) {
+            ESP_LOGI(TAG, "Hey Muse: starting hands-free Live Voice");
+            run_call(false, 0);
+        } else {
+            ESP_LOGW(TAG, "Hey Muse: Live Voice not ready");
+            go_idle(not_ready_reason());
+        }
+        continue;
+    }
+#endif
+    if (ptt && !synthetic) {   /* a wake word turn is a voice note, not a call */
             pending_down = false;
             if (muse_voice_call_ready()) run_call(true, wake ? s_pre_fill : 0);
             else {
