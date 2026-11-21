@@ -23,6 +23,16 @@ limitations under the License.
   </picture>
 </p>
 
+## 🎙️ Hey Muse — Hands-Free Live Voice
+
+This fork includes an experimental hands-free enhancement for the Waveshare ESP32-S3-Touch-AMOLED-1.75.
+
+Simply say **"Hey Muse"** to start a real-time, two-way spoken conversation without pressing a button.
+
+**[View the Hands-Free Live Voice Setup Guide](HANDS_FREE_VOICE.md)**
+
+---
+
 Muse gadgets are open source devices you build yourself. Program an
 off-the-shelf ESP32 board or set up a Raspberry Pi with our device SDKs, then
 connect Muse to your displays, buttons, sensors, actuators, and whatever else
